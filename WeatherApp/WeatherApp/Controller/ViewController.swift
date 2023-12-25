@@ -20,17 +20,40 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DispatchQueue.global().async {
-            APIManager.getData() { [weak self] weather in
+        loadData()
+    }
+    
+    //MARK: - Methods
+    fileprivate func loadData() {
+            APIManager.getData(city: "Ussuriysk") { [weak self] result in
+                
                 DispatchQueue.main.async {
-                    self?.mainLabelOutlet.text = weather.weather.first?.main
-                    self?.describtionLabelOutlet.text = weather.weather.first?.description
-                    self?.speedWindLabelOutlet.text = String(weather.wind.speed)
-                    self?.temperatureLabelOutlet.text = String(weather.main.temp)
-                    self?.feels_likeLabelOutlet.text = String(weather.main.feels_like)
+                    switch result {
+                    case .success(let weather):
+                        if let weather {
+                            self?.mainLabelOutlet.text = weather.weather.first?.main
+                            self?.describtionLabelOutlet.text = weather.weather.first?.description
+                            self?.speedWindLabelOutlet.text = "\(weather.wind.speed)"
+                            self?.temperatureLabelOutlet.text = "\(weather.main.temp)"
+                            self?.feels_likeLabelOutlet.text = "\(weather.main.feels_like)"
+                        } else {
+                            self?.showError(nil)
+                        }
+                    case .failure(let error):
+                        self?.showError(error)
+                    }
                 }
             }
         }
+    
+    private func showError(_ error: Error?) {
+            let textMessage = error == nil ? "Data is empty" : error?.localizedDescription
+            
+            let controller = UIAlertController(title: "Произошла ошибка", message: textMessage, preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Ok", style: .default)
+            controller.addAction(ok)
+            
+            self.present(controller, animated: true)
     }
 }
 
