@@ -1,5 +1,5 @@
 //
-//  DataModel.swift
+//  Weather.swift
 //  WeatherApp
 //
 //  Created by Nikita Skripka on 24.12.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DataModel: Codable {
+struct Weather: Codable {
     struct Weather: Codable {
         var main: String
         var description: String
