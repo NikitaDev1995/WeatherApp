@@ -8,20 +8,26 @@
 import Foundation
 
 struct Weather: Codable {
-    struct Weather: Codable {
-        var main: String
-        var description: String
-        var icon: String
-    }
-    struct Wind: Codable {
-        var speed: Double
-    }
-    struct Temperature: Codable {
-        var temp: Double
-        var feels_like: Double
+    struct List: Codable {
+        struct Temperature: Codable {
+            var temp: Double
+            var humidity: Int
+            var pressure: Int
+        }
+        
+        struct WeatherConditions: Codable {
+            var main: String
+        }
+        
+        struct Wind: Codable {
+            var speed: Double
+        }
+        
+        var main: Temperature
+        var weather: [WeatherConditions]
+        var wind: Wind
+        var dt_txt: String
     }
     
-    var weather: [Weather]
-    var wind: Wind
-    var main: Temperature
+    var list: [List]
 }
