@@ -24,6 +24,9 @@ final class MainViewController: UIViewController {
     @IBOutlet weak var weatherConditionCollectionViewOutlet: UICollectionView!
     @IBOutlet weak var weatherCityCollectionViewOutlet: UICollectionView!
     
+    //MARK: - Properties
+    var shouldDisplayWeek: Bool = true
+    
     //MARK: - Life Scene Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +42,7 @@ final class MainViewController: UIViewController {
         //weatherCityCollectionViewOutlet.dataSource = self
         
     }
-       
+           
     //MARK: - Methods
     private func configureNavigationController() {
         title = "Ussuriysk"
@@ -100,35 +103,72 @@ final class MainViewController: UIViewController {
     
     //MARK: - @IBActions
     @IBAction func refreshBarButtonAction(_ sender: UIBarButtonItem) {
-        
+        loadData()
+        weatherConditionCollectionViewOutlet.reloadData()
+    }
+    
+    
+    @IBAction func todayWeatherButtonAction(_ sender: UIButton) {
+        shouldDisplayWeek = false
+        weatherConditionCollectionViewOutlet.reloadData()
+    }
+    
+    
+    @IBAction func weekWeatherButtonAction(_ sender: UIButton) {
+        shouldDisplayWeek = true
+        weatherConditionCollectionViewOutlet.reloadData()
     }
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        5
+        if shouldDisplayWeek {
+            return 5
+        } else {
+            return 8
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         if collectionView == weatherConditionCollectionViewOutlet {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherConditionCell", for: indexPath) as! WeatherConditionCollectionViewCell
-
-            APIManager.getData(city: "Ussuriysk") { [weak self] result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let weather):
-                        if let weather {
-                            var index: [Int] = []
-                            for i in weather.list.indices {
-                                if i % 8 == 0 {
+            
+            if shouldDisplayWeek {
+                APIManager.getData(city: "Ussuriysk") { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let weather):
+                            if let weather {
+                                var index: [Int] = []
+                                for i in weather.list.indices {
+                                    if i % 8 == 0 {
+                                        index.append(i)
+                                    }
+                                }
+                                cell.configureWeatherConditionCell(weather, index[indexPath.row], isWeek: self?.shouldDisplayWeek ?? true)
+                            }
+                        case .failure(let error):
+                            self?.showError(error)
+                        }
+                    }
+                }
+            } else {
+                APIManager.getData(city: "Ussuriysk") { [weak self] result in
+                    DispatchQueue.main.async {
+                        switch result {
+                        case .success(let weather):
+                            if let weather {
+                                var index: [Int] = []
+                                for i in weather.list.indices {
                                     index.append(i)
                                 }
+                                cell.configureWeatherConditionCell(weather, index[indexPath.row], isWeek: self?.shouldDisplayWeek ?? false)
                             }
-                            cell.configureWeatherConditionCell(weather, index[indexPath.row])
+                        case .failure(let error):
+                            self?.showError(error)
                         }
-                    case .failure(let error):
-                        self?.showError(error)
                     }
                 }
             }
