@@ -39,7 +39,7 @@ final class MainViewController: UIViewController {
         //weatherCityCollectionViewOutlet.dataSource = self
         
     }
-    
+       
     //MARK: - Methods
     private func configureNavigationController() {
         title = "Ussuriysk"
@@ -118,9 +118,14 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let weather):
-                        
                         if let weather {
-                            cell.configureWeatherConditionCell(weather)
+                            var index: [Int] = []
+                            for i in weather.list.indices {
+                                if i % 8 == 0 {
+                                    index.append(i)
+                                }
+                            }
+                            cell.configureWeatherConditionCell(weather, index[indexPath.row])
                         }
                     case .failure(let error):
                         self?.showError(error)
