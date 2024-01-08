@@ -9,7 +9,7 @@ import Foundation
 
 final class APIManager {
     
-    static func getData(city: String = "Ussuriysk", completion: @escaping (Result<Weather?, Error>) -> Void) {
+    static func getData(city: String = "Moscow", completion: @escaping (Result<Weather?, Error>) -> Void) {
         let apiKey = "d46554a6cfc3c84d6e155b926f153ca8"
         
         let urlString =  "https://api.openweathermap.org/data/2.5/forecast?q=\(city),ru&appid=\(apiKey)&units=metric"

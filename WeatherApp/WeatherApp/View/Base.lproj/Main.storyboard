@@ -218,63 +218,34 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="182" translatesAutoresizingMaskIntoConstraints="NO" id="IIg-Jb-FuR">
-                                <rect key="frame" x="20" y="728.66666666666663" width="353" height="20"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hYx-Fs-85M">
-                                        <rect key="frame" x="0.0" y="0.0" width="101" height="20"/>
-                                        <color key="tintColor" red="0.87058823529411766" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Other Cities">
-                                            <fontDescription key="titleFontDescription" type="system" pointSize="12"/>
-                                        </buttonConfiguration>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gpk-8c-vZW">
-                                        <rect key="frame" x="283" y="0.0" width="70" height="20"/>
-                                        <color key="tintColor" red="0.87058823529411766" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
-                                    </button>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="Zpy-vz-vhK"/>
-                                </constraints>
-                            </stackView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wox-LN-59u">
-                                <rect key="frame" x="0.0" y="763.66666666666663" width="393" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="iRm-m1-KHf"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="I7c-uo-v3N">
-                                    <size key="itemSize" width="128" height="128"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MGc-VL-QsH">
+                                <rect key="frame" x="140.33333333333334" y="728.66666666666663" width="112.33333333333334" height="33.333333333333371"/>
+                                <color key="tintColor" red="0.87058823529999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Another city">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="16"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="changeCityButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7h6-RR-y2i"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.15686274510000001" green="0.14117647059999999" blue="0.49019607840000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="IIg-Jb-FuR" secondAttribute="trailing" constant="20" id="3Mx-li-Thz"/>
+                            <constraint firstItem="MGc-VL-QsH" firstAttribute="top" secondItem="hVh-l8-qJV" secondAttribute="bottom" constant="20" id="4Bs-ol-YB2"/>
                             <constraint firstItem="XWJ-R4-2sS" firstAttribute="top" secondItem="RNA-9E-RgO" secondAttribute="bottom" constant="19" id="93O-oE-U0D"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="hVh-l8-qJV" secondAttribute="trailing" id="Cup-cf-79K"/>
                             <constraint firstItem="0aY-Q9-d9P" firstAttribute="top" secondItem="XWJ-R4-2sS" secondAttribute="bottom" constant="20" id="Ibp-hl-rKh"/>
-                            <constraint firstItem="IIg-Jb-FuR" firstAttribute="top" secondItem="hVh-l8-qJV" secondAttribute="bottom" constant="20" id="J2V-Rb-bbO"/>
                             <constraint firstItem="XWJ-R4-2sS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="K0d-rc-FpA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wox-LN-59u" secondAttribute="trailing" id="Ua0-0A-iHY"/>
-                            <constraint firstItem="wox-LN-59u" firstAttribute="top" secondItem="IIg-Jb-FuR" secondAttribute="bottom" constant="15" id="bT0-Hx-jF0"/>
+                            <constraint firstItem="MGc-VL-QsH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OqM-8u-NHL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RNA-9E-RgO" secondAttribute="trailing" id="bso-Rx-V7o"/>
                             <constraint firstItem="hVh-l8-qJV" firstAttribute="top" secondItem="0aY-Q9-d9P" secondAttribute="bottom" constant="20" id="e0A-52-Uek"/>
                             <constraint firstItem="0aY-Q9-d9P" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ggC-wQ-pan"/>
                             <constraint firstItem="RNA-9E-RgO" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="iYM-Kz-Kfv"/>
-                            <constraint firstItem="IIg-Jb-FuR" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="kq5-CU-Ez8"/>
                             <constraint firstItem="hVh-l8-qJV" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sQd-Rx-EwQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0aY-Q9-d9P" secondAttribute="trailing" constant="20" id="vRR-Bb-rkt"/>
                             <constraint firstItem="RNA-9E-RgO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="woM-EX-6tA"/>
-                            <constraint firstItem="wox-LN-59u" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="xts-kl-EeJ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Oae-9M-M8x">
@@ -325,6 +296,5 @@
         <image name="Humidity" width="24" height="24"/>
         <image name="Pressure" width="24" height="24"/>
         <image name="Wind Speed" width="24" height="24"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
     </resources>
 </document>

@@ -22,30 +22,27 @@ final class MainViewController: UIViewController {
     
     
     @IBOutlet weak var weatherConditionCollectionViewOutlet: UICollectionView!
-    @IBOutlet weak var weatherCityCollectionViewOutlet: UICollectionView!
-    
+
     //MARK: - Properties
     var shouldDisplayWeek: Bool = true
+    var defaultCity: String = "Moscow"
     
     //MARK: - Life Scene Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureNavigationController()
-        loadData()
+        loadData(city: defaultCity)
         
         let nib = UINib(nibName: "WeatherConditionCollectionViewCell", bundle: nil)
         weatherConditionCollectionViewOutlet.register(nib.self, forCellWithReuseIdentifier: "WeatherConditionCell")
         weatherConditionCollectionViewOutlet.delegate = self
         weatherConditionCollectionViewOutlet.dataSource = self
-        //weatherCityCollectionViewOutlet.delegate = self
-        //weatherCityCollectionViewOutlet.dataSource = self
-        
     }
-           
+    
     //MARK: - Methods
     private func configureNavigationController() {
-        title = "Ussuriysk"
+        title = defaultCity
         
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
@@ -59,8 +56,17 @@ final class MainViewController: UIViewController {
         
     }
     
-    private func loadData() {
-        APIManager.getData(city: "Ussuriysk") { [weak self] result in
+    private func getCurrentTime() -> Int {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH"
+        let currentTimeString = Int(dateFormatter.string(from: currentDate)) ?? 0
+        
+        return currentTimeString
+    }
+    
+    private func loadData(city: String) {
+        APIManager.getData(city: city) { [weak self] result in
             
             DispatchQueue.main.async {
                 switch result {
@@ -94,7 +100,7 @@ final class MainViewController: UIViewController {
     private func showError(_ error: Error?) {
         let textMessage = error == nil ? "Data is empty" : error?.localizedDescription
         
-        let controller = UIAlertController(title: "Произошла ошибка", message: textMessage, preferredStyle: .alert)
+        let controller = UIAlertController(title: "Error", message: textMessage, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .default)
         controller.addAction(ok)
         
@@ -103,21 +109,37 @@ final class MainViewController: UIViewController {
     
     //MARK: - @IBActions
     @IBAction func refreshBarButtonAction(_ sender: UIBarButtonItem) {
-        loadData()
+        loadData(city: defaultCity)
         weatherConditionCollectionViewOutlet.reloadData()
     }
-    
     
     @IBAction func todayWeatherButtonAction(_ sender: UIButton) {
         shouldDisplayWeek = false
         weatherConditionCollectionViewOutlet.reloadData()
     }
     
-    
     @IBAction func weekWeatherButtonAction(_ sender: UIButton) {
         shouldDisplayWeek = true
         weatherConditionCollectionViewOutlet.reloadData()
     }
+    
+    @IBAction func changeCityButtonAction(_ sender: UIButton) {
+        let allertController = UIAlertController(title: "Write a city", message: nil, preferredStyle: .alert)
+        allertController.addTextField { (textField) in
+            textField.placeholder = "City"
+        }
+        let findAlertButton = UIAlertAction(title: "Find", style: .default) { _ in
+            self.defaultCity = allertController.textFields?[0].text ?? ""
+            self.title = allertController.textFields?[0].text ?? ""
+            self.loadData(city: self.defaultCity)
+            self.weatherConditionCollectionViewOutlet.reloadData()
+        }
+        let cancelAlertButton = UIAlertAction(title: "Cancel", style: .cancel)
+        allertController.addAction(findAlertButton)
+        allertController.addAction(cancelAlertButton)
+        self.present(allertController, animated: true)
+    }
+    
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -132,11 +154,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if collectionView == weatherConditionCollectionViewOutlet {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherConditionCell", for: indexPath) as! WeatherConditionCollectionViewCell
             
             if shouldDisplayWeek {
-                APIManager.getData(city: "Ussuriysk") { [weak self] result in
+                APIManager.getData(city: defaultCity) { [weak self] result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let weather):
@@ -155,7 +176,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                     }
                 }
             } else {
-                APIManager.getData(city: "Ussuriysk") { [weak self] result in
+                APIManager.getData(city: defaultCity) { [weak self] result in
                     DispatchQueue.main.async {
                         switch result {
                         case .success(let weather):
@@ -173,10 +194,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 }
             }
             return cell
-        } else if collectionView == weatherCityCollectionViewOutlet {
-            
-        }
-        return UICollectionViewCell()
     }
 }
     
