@@ -52,7 +52,7 @@ class WeatherConditionCollectionViewCell: UICollectionViewCell {
             case "Thunderstorm": self.weatherConditionImageOutlet.image = UIImage(named: "Thunderstorm")
             default: break
             }
-            weatherDegreeOutlet.text = "\(weather.list[indexForWeatherList].main.temp)"
+            weatherDegreeOutlet.text = "\(Int(weather.list[indexForWeatherList].main.temp))°"
         } else {
             timeLabelOutlet.text = newHour
             switch weather.list[indexForWeatherList].weather.first?.main {
@@ -64,7 +64,8 @@ class WeatherConditionCollectionViewCell: UICollectionViewCell {
             case "Thunderstorm": self.weatherConditionImageOutlet.image = UIImage(named: "Thunderstorm")
             default: break
             }
-            weatherDegreeOutlet.text = "\(weather.list[indexForWeatherList].main.temp)"
+            
+            weatherDegreeOutlet.text = "\(Int(weather.list[indexForWeatherList].main.temp))°"
         }
     }
 }

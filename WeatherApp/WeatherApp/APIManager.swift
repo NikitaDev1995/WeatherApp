@@ -23,7 +23,6 @@ final class APIManager {
             } else if let data {
                 let weather = try? JSONDecoder().decode(Weather.self, from: data)
                 completion(.success(weather))
-                
             }
         }.resume()
     }

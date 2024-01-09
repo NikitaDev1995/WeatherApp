@@ -82,7 +82,7 @@ final class MainViewController: UIViewController {
                         case "Thunderstorm": self?.imageViewOutlet.image = UIImage(named: "Thunderstorm")
                         default: break
                         }
-                        self?.tempLabelOutlet.text = "\(weather.list.first?.main.temp ?? 0)"
+                        self?.tempLabelOutlet.text = "\(Int(weather.list.first?.main.temp ?? 0))°"
                         self?.dateLabelOutlet.text = weather.list[0].dt_txt
                         self?.pressureLabelOutlet.text = "\(Double(weather.list.first?.main.pressure ?? 0) * 0.75)"
                         self?.humidityLabelOutlet.text = "\(weather.list.first?.main.humidity ?? 0)%"
