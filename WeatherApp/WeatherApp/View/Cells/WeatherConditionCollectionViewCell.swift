@@ -21,7 +21,6 @@ class WeatherConditionCollectionViewCell: UICollectionViewCell {
     }
     
     func configureWeatherConditionCell(_ weather: Weather, _ indexForWeatherList: Int, isWeek: Bool) {
-        
         let str = weather.list[indexForWeatherList].dt_txt
         // Разбиваем строку на две части: дату и время
         let components = str.components(separatedBy: " ")

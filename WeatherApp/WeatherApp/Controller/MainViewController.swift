@@ -12,18 +12,13 @@ final class MainViewController: UIViewController {
     //MARK: - @IBOutlets
     @IBOutlet weak var conditionLabelOutlet: UILabel!
     @IBOutlet weak var imageViewOutlet: UIImageView!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     @IBOutlet weak var tempLabelOutlet: UILabel!
     @IBOutlet weak var dateLabelOutlet: UILabel!
     @IBOutlet weak var humidityLabelOutlet: UILabel!
     @IBOutlet weak var windSpeedLabelOutlet: UILabel!
     @IBOutlet weak var pressureLabelOutlet: UILabel!
-    
     @IBOutlet weak var weatherDataViewOutlet: UIView!
-    
-    
     @IBOutlet weak var weatherConditionCollectionViewOutlet: UICollectionView!
 
     //MARK: - Properties
@@ -39,6 +34,7 @@ final class MainViewController: UIViewController {
         loadData(city: defaultCity)
         
         let nib = UINib(nibName: "WeatherConditionCollectionViewCell", bundle: nil)
+        
         weatherConditionCollectionViewOutlet.register(nib.self, forCellWithReuseIdentifier: "WeatherConditionCell")
         weatherConditionCollectionViewOutlet.delegate = self
         weatherConditionCollectionViewOutlet.dataSource = self
@@ -59,9 +55,22 @@ final class MainViewController: UIViewController {
         weatherDataViewOutlet.layer.cornerRadius = 10
         
     }
+
+    private func changeDateTextOutlet(date: String) -> String {
+        let inputString = date
+        let inputFormatter = DateFormatter()
+        inputFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date = inputFormatter.date(from: inputString)
+        let outputFormatter = DateFormatter()
+        outputFormatter.dateFormat = "HH:mm dd-MM-yyyy"
+        let outputString = outputFormatter.string(from: date!)
+        
+        return outputString
+    }
     
     private func loadData(city: String) {
         self.activityIndicator.startAnimating()
+        
         func displayData(weather: Weather, index: Int) {
             self.conditionLabelOutlet.text = weather.list[index].weather.first?.main
             switch weather.list[index].weather.first?.main {
@@ -73,8 +82,9 @@ final class MainViewController: UIViewController {
             case "Thunderstorm": self.imageViewOutlet.image = UIImage(named: "Thunderstorm")
             default: break
             }
+            
             self.tempLabelOutlet.text = "\(Int(weather.list[index].main.temp))°"
-            self.dateLabelOutlet.text = weather.list[index].dt_txt
+            self.dateLabelOutlet.text = changeDateTextOutlet(date: weather.list[index].dt_txt)
             self.pressureLabelOutlet.text = "\(Double(weather.list[index].main.pressure) * 0.75)"
             self.humidityLabelOutlet.text = "\(weather.list[index].main.humidity)%"
             self.windSpeedLabelOutlet.text = "\(weather.list[index].wind.speed)km/h"
@@ -91,7 +101,6 @@ final class MainViewController: UIViewController {
                             }
                             let index13 = i.dt_txt.index(i.dt_txt.startIndex, offsetBy: 11)
                             let index14 = i.dt_txt.index(i.dt_txt.startIndex, offsetBy: 12)
-
                             let letter13 = String(i.dt_txt[index13])
                             let letter14 = String(i.dt_txt[index14])
                             let time = letter13 + letter14
@@ -137,7 +146,6 @@ final class MainViewController: UIViewController {
         let controller = UIAlertController(title: "Error", message: textMessage, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .default)
         controller.addAction(ok)
-        
         self.present(controller, animated: true)
     }
     
@@ -164,12 +172,14 @@ final class MainViewController: UIViewController {
         allertController.addTextField { (textField) in
             textField.placeholder = "City"
         }
+        
         let findAlertButton = UIAlertAction(title: "Find", style: .default) { _ in
             self.defaultCity = allertController.textFields?[0].text ?? ""
             self.title = allertController.textFields?[0].text ?? ""
             self.loadData(city: self.defaultCity)
             self.weatherConditionCollectionViewOutlet.reloadData()
         }
+        
         let cancelAlertButton = UIAlertAction(title: "Cancel", style: .cancel)
         allertController.addAction(findAlertButton)
         allertController.addAction(cancelAlertButton)
@@ -188,7 +198,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherConditionCell", for: indexPath) as! WeatherConditionCollectionViewCell
         cell.weatherConditionImageOutlet.image = UIImage()
         cell.activityIndicator.isHidden = false
