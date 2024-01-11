@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "..."; ObjectID = "4R0-jZ-QEm"; */
+"4R0-jZ-QEm.text" = "...";
+
+/* Class = "UIButton"; configuration.title = "5-Day Forecasts"; ObjectID = "9xs-7W-nyu"; */
+"9xs-7W-nyu.configuration.title" = "5-Day Forecasts";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "9xs-7W-nyu"; */
+"9xs-7W-nyu.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "FfX-Jp-s3s"; */
+"FfX-Jp-s3s.text" = "...";
+
+/* Class = "UIButton"; configuration.title = "Another city"; ObjectID = "MGc-VL-QsH"; */
+"MGc-VL-QsH.configuration.title" = "Another city";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "MGc-VL-QsH"; */
+"MGc-VL-QsH.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Wind Speed"; ObjectID = "P3k-rs-2cI"; */
+"P3k-rs-2cI.text" = "Wind Speed";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "hd6-Vj-tS4"; */
+"hd6-Vj-tS4.text" = "...";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "irY-Z3-5Ry"; */
+"irY-Z3-5Ry.text" = "...";
+
+/* Class = "UILabel"; text = "Humidity"; ObjectID = "n1k-Cn-zHW"; */
+"n1k-Cn-zHW.text" = "Humidity";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "n2T-Um-mFf"; */
+"n2T-Um-mFf.text" = "...";
+
+/* Class = "UIButton"; configuration.title = "Today"; ObjectID = "n2p-1m-vXK"; */
+"n2p-1m-vXK.configuration.title" = "Today";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "n2p-1m-vXK"; */
+"n2p-1m-vXK.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Pressure"; ObjectID = "qUQ-uJ-QAj"; */
+"qUQ-uJ-QAj.text" = "Pressure";
+
+/* Class = "UILabel"; text = "..."; ObjectID = "rld-Oo-HN0"; */
+"rld-Oo-HN0.text" = "...";
