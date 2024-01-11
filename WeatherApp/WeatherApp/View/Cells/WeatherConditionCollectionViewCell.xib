@@ -26,13 +26,29 @@
                                 <color key="textColor" red="0.87058823529999996" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P9w-HC-xRE">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d3Z-Qm-IhP">
                                 <rect key="frame" x="10.666666666666664" y="31.666666666666671" width="37" height="30"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P9w-HC-xRE">
+                                        <rect key="frame" x="0.0" y="0.0" width="37" height="30"/>
+                                    </imageView>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="hWU-oA-LXY">
+                                        <rect key="frame" x="8.3333333333333357" y="4.9999999999999964" width="20" height="20"/>
+                                        <color key="color" red="1" green="0.94509803920000002" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="37" id="ITO-mm-d1V"/>
-                                    <constraint firstAttribute="height" constant="30" id="Pqk-b9-Qcv"/>
+                                    <constraint firstAttribute="width" constant="37" id="3u1-fb-8M6"/>
+                                    <constraint firstAttribute="bottom" secondItem="P9w-HC-xRE" secondAttribute="bottom" id="7sC-ox-obc"/>
+                                    <constraint firstItem="hWU-oA-LXY" firstAttribute="centerX" secondItem="d3Z-Qm-IhP" secondAttribute="centerX" id="9Dz-5O-YxZ"/>
+                                    <constraint firstItem="P9w-HC-xRE" firstAttribute="top" secondItem="d3Z-Qm-IhP" secondAttribute="top" id="AWq-cx-cso"/>
+                                    <constraint firstAttribute="height" constant="30" id="G04-UB-Zkd"/>
+                                    <constraint firstItem="hWU-oA-LXY" firstAttribute="centerY" secondItem="d3Z-Qm-IhP" secondAttribute="centerY" id="XMz-r9-Zcn"/>
+                                    <constraint firstItem="P9w-HC-xRE" firstAttribute="leading" secondItem="d3Z-Qm-IhP" secondAttribute="leading" id="Xx3-9q-SFv"/>
+                                    <constraint firstAttribute="trailing" secondItem="P9w-HC-xRE" secondAttribute="trailing" id="g9a-lc-iYU"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23 °" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Sg-rS-pcK">
                                 <rect key="frame" x="13" y="78.666666666666671" width="32" height="20.333333333333329"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -51,11 +67,12 @@
                 </constraints>
             </collectionViewCellContentView>
             <connections>
+                <outlet property="activityIndicator" destination="hWU-oA-LXY" id="iwq-nc-sez"/>
                 <outlet property="timeLabelOutlet" destination="men-JN-HDw" id="c1x-bf-NLf"/>
                 <outlet property="weatherConditionImageOutlet" destination="P9w-HC-xRE" id="oic-OL-PfO"/>
                 <outlet property="weatherDegreeOutlet" destination="9Sg-rS-pcK" id="mP8-wZ-q2m"/>
             </connections>
-            <point key="canvasLocation" x="92" y="12"/>
+            <point key="canvasLocation" x="91.603053435114504" y="11.619718309859156"/>
         </collectionViewCell>
     </objects>
 </document>

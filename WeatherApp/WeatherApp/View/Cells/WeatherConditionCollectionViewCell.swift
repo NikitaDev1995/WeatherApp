@@ -11,6 +11,7 @@ class WeatherConditionCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var timeLabelOutlet: UILabel!
     @IBOutlet weak var weatherConditionImageOutlet: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var weatherDegreeOutlet: UILabel!
     
     override func awakeFromNib() {
@@ -43,6 +44,7 @@ class WeatherConditionCollectionViewCell: UICollectionViewCell {
  
         if isWeek {
             timeLabelOutlet.text = newDate
+            
             switch weather.list[indexForWeatherList].weather.first?.main {
             case "Clouds": self.weatherConditionImageOutlet.image = UIImage(named: "Clouds")
             case "Clear": self.weatherConditionImageOutlet.image = UIImage(named: "Clear")
@@ -55,6 +57,7 @@ class WeatherConditionCollectionViewCell: UICollectionViewCell {
             weatherDegreeOutlet.text = "\(Int(weather.list[indexForWeatherList].main.temp))°"
         } else {
             timeLabelOutlet.text = newHour
+            
             switch weather.list[indexForWeatherList].weather.first?.main {
             case "Clouds": self.weatherConditionImageOutlet.image = UIImage(named: "Clouds")
             case "Clear": self.weatherConditionImageOutlet.image = UIImage(named: "Clear")
