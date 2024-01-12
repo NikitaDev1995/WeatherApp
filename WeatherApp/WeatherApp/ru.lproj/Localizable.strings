@@ -5,3 +5,10 @@
   Created by Nikita Skripka on 12.01.2024.
   
 */
+
+"MainViewController.speedWind.label.text" = "Скорость ветра";
+"MainViewController.humidity.label.text" = "Влажность";
+"MainViewController.pressure.label.text" = "Давление";
+"MainViewController.today.button.text" = "Сегодня";
+"MainViewController.daysForecasts.button.text" = "Прогноз на 5 дней";
+"MainViewController.anotherCity.button.text" = "Другой город";
