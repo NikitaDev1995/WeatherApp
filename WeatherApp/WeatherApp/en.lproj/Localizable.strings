@@ -11,4 +11,4 @@
 "MainViewController.pressure.label.text" = "Pressure";
 "MainViewController.today.button.text" = "Today";
 "MainViewController.daysForecasts.button.text" = "5-Day Forecasts";
-"MainViewController.anotherCity.button.text" = "Another city"
+"MainViewController.anotherCity.button.text" = "Another city";
