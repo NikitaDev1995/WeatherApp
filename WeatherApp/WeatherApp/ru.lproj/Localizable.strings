@@ -12,3 +12,9 @@
 "MainViewController.today.button.text" = "Сегодня";
 "MainViewController.daysForecasts.button.text" = "Прогноз на 5 дней";
 "MainViewController.anotherCity.button.text" = "Другой город";
+"MainViewController.titleAllertController" = "Укажите город";
+"MainViewController.placeholderAllertController" = "Город";
+"MainViewController.cancelButtonAllertController" = "Отмена";
+"MainViewController.findButtonAllertController" = "Найти";
+"MainViewController.textMessageErrorAlertController" = "Отсутствуют данные";
+"MainViewController.titleMessageErrorAllertController" = "Ошибка";

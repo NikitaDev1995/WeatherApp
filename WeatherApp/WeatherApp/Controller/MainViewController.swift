@@ -20,7 +20,13 @@ final class MainViewController: UIViewController {
     @IBOutlet weak var pressureLabelOutlet: UILabel!
     @IBOutlet weak var weatherDataViewOutlet: UIView!
     @IBOutlet weak var weatherConditionCollectionViewOutlet: UICollectionView!
-
+    @IBOutlet weak var pressureLocalizationLabelOutlet: UILabel!
+    @IBOutlet weak var humidityLocalizationLabelOutle: UILabel!
+    @IBOutlet weak var windSpeedLocalizationLabelOutlet: UILabel!
+    @IBOutlet weak var todayLocalizationButtonOutlet: UIButton!
+    @IBOutlet weak var forecastLocalizationButtonOutlet: UIButton!
+    @IBOutlet weak var anotherCityLocalizationButtonOutlet: UIButton!
+    
     //MARK: - Properties
     var shouldDisplayWeek: Bool = true
     var defaultCity: String = "Moscow"
@@ -30,14 +36,14 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureNavigationController()
-        loadData(city: defaultCity)
-        
         let nib = UINib(nibName: "WeatherConditionCollectionViewCell", bundle: nil)
         
         weatherConditionCollectionViewOutlet.register(nib.self, forCellWithReuseIdentifier: "WeatherConditionCell")
         weatherConditionCollectionViewOutlet.delegate = self
         weatherConditionCollectionViewOutlet.dataSource = self
+        
+        configureNavigationController()
+        loadData(city: defaultCity)
     }
     
     //MARK: - Methods
@@ -53,7 +59,12 @@ final class MainViewController: UIViewController {
         conditionLabelOutlet.textColor = UIColor(hexString: "DEDDDD")
         weatherDataViewOutlet.backgroundColor = UIColor(hexString: "#957DCD")
         weatherDataViewOutlet.layer.cornerRadius = 10
-        
+        pressureLocalizationLabelOutlet.text = NSLocalizedString("MainViewController.pressure.label.text", comment: "")
+        humidityLocalizationLabelOutle.text = NSLocalizedString("MainViewController.humidity.label.text", comment: "")
+        windSpeedLocalizationLabelOutlet.text = NSLocalizedString("MainViewController.speedWind.label.text", comment: "")
+        todayLocalizationButtonOutlet.setTitle(NSLocalizedString("MainViewController.today.button.text", comment: ""), for: .normal)
+        forecastLocalizationButtonOutlet.setTitle(NSLocalizedString("MainViewController.daysForecasts.button.text", comment: ""), for: .normal)
+        anotherCityLocalizationButtonOutlet.setTitle(NSLocalizedString("MainViewController.anotherCity.button.text", comment: ""), for: .normal)
     }
 
     private func changeDateTextOutlet(date: String) -> String {
@@ -130,11 +141,14 @@ final class MainViewController: UIViewController {
                             displayData(weather: weather, index: 7)
                         default: break
                         }
+                        self?.title = self?.defaultCity
+                        self?.weatherConditionCollectionViewOutlet.reloadData()
                     } else {
                         self?.showError(nil)
                     }
                 case .failure(let error):
                     self?.showError(error)
+                    return
                 }
                 self!.activityIndicator.stopAnimating()
             }
@@ -142,8 +156,8 @@ final class MainViewController: UIViewController {
     }
     
     private func showError(_ error: Error?) {
-        let textMessage = error == nil ? "Data is empty" : error?.localizedDescription
-        let controller = UIAlertController(title: "Error", message: textMessage, preferredStyle: .alert)
+        let textMessage = error == nil ? NSLocalizedString("MainViewController.textMessageErrorAlertController", comment: "") : error?.localizedDescription
+        let controller = UIAlertController(title: NSLocalizedString("MainViewController.titleMessageErrorAllertController", comment: ""), message: textMessage, preferredStyle: .alert)
         let ok = UIAlertAction(title: "Ok", style: .default)
         controller.addAction(ok)
         self.present(controller, animated: true)
@@ -154,7 +168,6 @@ final class MainViewController: UIViewController {
         imageViewOutlet.image = UIImage()
         activityIndicator.isHidden = false
         loadData(city: defaultCity)
-        weatherConditionCollectionViewOutlet.reloadData()
     }
     
     @IBAction func todayWeatherButtonAction(_ sender: UIButton) {
@@ -168,19 +181,24 @@ final class MainViewController: UIViewController {
     }
     
     @IBAction func changeCityButtonAction(_ sender: UIButton) {
-        let allertController = UIAlertController(title: "Write a city", message: nil, preferredStyle: .alert)
+        let allertController = UIAlertController(title: NSLocalizedString("MainViewController.titleAllertController", comment: ""), message: nil, preferredStyle: .alert)
         allertController.addTextField { (textField) in
-            textField.placeholder = "City"
+            textField.delegate = self
+            textField.placeholder = NSLocalizedString("MainViewController.placeholderAllertController", comment: "")
         }
         
-        let findAlertButton = UIAlertAction(title: "Find", style: .default) { _ in
-            self.defaultCity = allertController.textFields?[0].text ?? ""
-            self.title = allertController.textFields?[0].text ?? ""
-            self.loadData(city: self.defaultCity)
-            self.weatherConditionCollectionViewOutlet.reloadData()
+        let findAlertButton = UIAlertAction(title: NSLocalizedString("MainViewController.findButtonAllertController", comment: ""), style: .default) { _ in
+            
+            if let textField = allertController.textFields?.first?.text,
+               !textField.isEmpty {
+                self.defaultCity = textField
+                self.loadData(city: self.defaultCity)
+            } else {
+                return
+            }
         }
         
-        let cancelAlertButton = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAlertButton = UIAlertAction(title: NSLocalizedString("MainViewController.cancelButtonAllertController", comment: ""), style: .cancel)
         allertController.addAction(findAlertButton)
         allertController.addAction(cancelAlertButton)
         self.present(allertController, animated: true)
@@ -188,7 +206,6 @@ final class MainViewController: UIViewController {
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if shouldDisplayWeek {
             return 5
@@ -246,3 +263,11 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
     
+extension MainViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if range.location == 0 && string == " " {
+            return false
+        }
+        return true
+    }
+}

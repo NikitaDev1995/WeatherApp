@@ -12,3 +12,9 @@
 "MainViewController.today.button.text" = "Today";
 "MainViewController.daysForecasts.button.text" = "5-Day Forecasts";
 "MainViewController.anotherCity.button.text" = "Another city";
+"MainViewController.titleAllertController" = "Write a city";
+"MainViewController.placeholderAllertController" = "City";
+"MainViewController.cancelButtonAllertController" = "Cancel";
+"MainViewController.findButtonAllertController" = "Find";
+"MainViewController.textMessageErrorAlertController" = "Data is empty";
+"MainViewController.titleMessageErrorAllertController" = "Error";
